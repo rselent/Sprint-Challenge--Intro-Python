@@ -1,6 +1,13 @@
 # Create a class to hold a city location. Call the class "City". It should have
 # fields for name, lat and lon (representing latitude and longitude).
 
+class City:
+    def __init__( self, name, lat, lon):
+        self.name = name
+        self.lat = lat
+        self.lon = lon
+    def __repr__( self):
+        return f"City({repr(self.name)}, {self.lat},{self.lon})"
 
 # We have a collection of US cities with population over 750,000 stored in the
 # file "cities.csv". (CSV stands for "comma-separated values".)
@@ -14,20 +21,39 @@
 #
 # Note that the first line of the CSV is header that describes the fields--this
 # should not be loaded into a City object.
+
+import csv
+
 cities = []
 
-def cityreader(cities=[]):
-  # TODO Implement the functionality to read from the 'cities.csv' file
-  # For each city record, create a new City instance and add it to the 
-  # `cities` list
     
+
+def cityreader( cities=[]):
+    # TODO Implement the functionality to read from the 'cities.csv' file
+    # For each city record, create a new City instance and add it to the 
+    # `cities` list
+    
+    f = open( "cities.csv", "r", encoding= "cp1252", newline= "")
+    reading = csv.reader( f)
+
+    # Instantiate line counter, so we can skip header
+    lineCount = 0
+    # For each record (row), create new City instance with name, lat, lon only
+    for row in reading:
+        if lineCount == 0:
+            lineCount += 1
+        else:
+            city = City( row[0], float( row[3]), float( row[4]))
+            cities.append( city)
     return cities
 
-cityreader(cities)
+cityreader( cities)
 
 # Print the list of cities (name, lat, lon), 1 record per line.
 for c in cities:
-    print(c)
+    print( c)
+
+print( "\n", len( cities), " ", type( cities), sep= "")
 
 # STRETCH GOAL!
 #
@@ -60,12 +86,12 @@ for c in cities:
 
 # TODO Get latitude and longitude values from the user
 
-def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
-  # within will hold the cities that fall within the specified region
-  within = []
+def cityreader_stretch( lat1, lon1, lat2, lon2, cities=[]):
+    # within will hold the cities that fall within the specified region
+    within = []
+    
+    # TODO Ensure that the lat and lon valuse are all floats
+    # Go through each city and check to see if it falls within 
+    # the specified coordinates.
 
-  # TODO Ensure that the lat and lon valuse are all floats
-  # Go through each city and check to see if it falls within 
-  # the specified coordinates.
-
-  return within
+    return within
